@@ -1,0 +1,6 @@
+---
+- name: Restart Ops Agent
+  systemd:
+    name: google-cloud-ops-agent
+    state: restarted
+    enabled: yes

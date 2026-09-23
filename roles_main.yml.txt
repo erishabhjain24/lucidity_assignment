@@ -1,0 +1,19 @@
+#Agent Installation & Config 
+
+---
+- name: Add Google Cloud Ops Agent repository and install
+  shell: |
+    curl -sSO https://dl.google.com/cloudagents/add-google-cloud-ops-agent-repo.sh
+    sudo bash add-google-cloud-ops-agent-repo.sh --also-install
+  args:
+    creates: /etc/google-cloud-ops-agent/config.yaml
+  notify: Restart Ops Agent
+
+- name: Push Ops Agent custom metrics configuration
+  copy:
+    src: config.yaml
+    dest: /etc/google-cloud-ops-agent/config.yaml
+    owner: root
+    group: root
+    mode: '0644'
+  notify: Restart Ops Agent

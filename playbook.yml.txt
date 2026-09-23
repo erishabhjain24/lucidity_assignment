@@ -1,0 +1,7 @@
+---
+- name: Deploy Google Cloud Ops Agent for Disk Monitoring
+  hosts: all
+  become: yes
+  gather_facts: yes
+  roles:
+    - ops_agent

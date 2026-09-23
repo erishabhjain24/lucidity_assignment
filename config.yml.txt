@@ -1,0 +1,11 @@
+#capture the standard host metrics, which includes disk utilization, every 60 seconds.
+
+metrics:
+  receivers:
+    hostmetrics:
+      type: hostmetrics
+      collection_interval: 60s
+  service:
+    pipelines:
+      default_pipeline:
+        receivers: [hostmetrics]

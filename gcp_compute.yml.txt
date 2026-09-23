@@ -1,0 +1,17 @@
+#This file instructs Ansible to discover instances across projects and use IAP (identitiy aware proxy) for connectivity.
+
+plugin: google.cloud.gcp_compute
+projects:
+  - source-project-123
+  - source-project-456
+auth_kind: serviceaccount
+service_account_file: /opt/ansible/sa-credentials.json
+filters:
+  - status = RUNNING
+  - labels.monitor = true
+hostnames:
+  - name
+compose:
+  # Route SSH through IAP tunnel dynamically 
+  ansible_ssh_common_args: >
+    -o ProxyCommand='gcloud compute start-iap-tunnel %h %p --listen-on-stdin --project={{ project }} --zone={{ zone }}'
